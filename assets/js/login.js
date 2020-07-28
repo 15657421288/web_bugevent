@@ -9,7 +9,7 @@ $(function () {
     })
     var form = layui.form
     var layer = layui.layer
-    var date = {
+    var data = {
         username: $('#form_Registration [name=username]').val(),
         password: $('#form_Registration [name=password]').val()
     }
@@ -27,13 +27,11 @@ $(function () {
     //监听注册表单提交事件
     $('#form_Registration').on('submit', function (e) {
         e.preventDefault()
-        $.post('http://ajax.frontend.itheima.net/api/reguser', date ,
+        $.post('/api/reguser', data ,
             function (res) {
-                if (res.status !== 0) {
-                    
+                if (res.status !== 0) {               
                     return layer.msg(res.message)
                 }
-                alert(1)
                 layer.msg('注册成功')
                 $('.reg-box a').click();
             })
