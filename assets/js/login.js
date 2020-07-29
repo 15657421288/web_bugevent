@@ -13,13 +13,15 @@ $(function () {
         username: $('#form_Registration [name=username]').val(),
         password: $('#form_Registration [name=password]').val()
     }
+
+
     form.verify({
         pwd: [
             /^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格'
         ],
-        repwd:function(value){
-            var pwd=$('#form_Registration [name=password]').val()
-            if(pwd!==value){
+        repwd: function (value) {
+            var pwd = $('#form_Registration [name=password]').val()
+            if (pwd !== value) {
                 return '两次密码不一致'
             }
         }
@@ -27,9 +29,16 @@ $(function () {
     //监听注册表单提交事件
     $('#form_Registration').on('submit', function (e) {
         e.preventDefault()
-        $.post('/api/reguser', data ,
-            function (res) {
-                if (res.status !== 0) {               
+        
+        var data=$(this).serialize()
+     
+        $.post('/api/reguser', data,
+         function (res) {
+
+            console.log(res) 
+
+
+                if (res.status !== 0) {
                     return layer.msg(res.message)
                 }
                 layer.msg('注册成功')
